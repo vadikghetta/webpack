@@ -16,7 +16,7 @@ export default (env : IEnvVarsType) =>
     const isDev = env.mode === "development" ? true : false;
     const config : webpack.Configuration =  {
         mode: env.mode ?? "development",
-        entry: path.resolve(__dirname, "src", "index.ts"),
+        entry: path.resolve(__dirname, "src", "index.tsx"),
         output: {
             filename: '[name].[contenthash].js',
             path: path.resolve(__dirname, 'build'),
