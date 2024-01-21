@@ -13,6 +13,7 @@ interface IEnvVarsType {
 
 export default (env : IEnvVarsType) =>
 {
+    const isDev = env.mode === "development" ? true : false;
     const config : webpack.Configuration =  {
         mode: env.mode ?? "development",
         entry: path.resolve(__dirname, "src", "index.ts"),
@@ -21,16 +22,16 @@ export default (env : IEnvVarsType) =>
             path: path.resolve(__dirname, 'build'),
             clean: true
         },
-        devServer : {
+        devtool: isDev ? "inline-source-map" : false,
+        devServer : isDev ? {
             port : env.port ?? 3000,
             open : true
-        },
+        } : undefined,
         plugins: [new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "public", "index.html")
         }),
-        new webpack.ProgressPlugin()
-        ],
-        devtool: "inline-source-map",
+        isDev && new webpack.ProgressPlugin()
+        ].filter(Boolean),
         module: {
             rules: [
                 {
