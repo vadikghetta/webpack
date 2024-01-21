@@ -2,6 +2,7 @@ import path from "path"
 import  HtmlWebpackPlugin from "html-webpack-plugin"
 import webpack from "webpack";
 import type { Configuration as DevServerConfiguration } from "webpack-dev-server";
+import MiniCssExtractPlugin from "mini-css-extract-plugin"
 
 
 type TMode = "production" | "development";
@@ -30,13 +31,25 @@ export default (env : IEnvVarsType) =>
         plugins: [new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "public", "index.html")
         }),
+        new MiniCssExtractPlugin({
+            filename: "css/[name].[contenthash:8].css",
+            chunkFilename: "css/[name].[contenthash:8].css",
+        })
+        ,
         isDev && new webpack.ProgressPlugin()
         ].filter(Boolean),
         module: {
             rules: [
                 {
-                    test: /\.css$/i,
-                    use: ["style-loader", "css-loader"],
+                    test: /\.s[ac]ss$/i,
+                    use: [
+                      // Creates `style` nodes from JS strings
+                      isDev ? "style-loader" : MiniCssExtractPlugin.loader,
+                      // Translates CSS into CommonJS
+                      "css-loader",
+                      // Compiles Sass to CSS
+                      "sass-loader",
+                    ],
                   },
                 {
                     test: /\.tsx?$/,
