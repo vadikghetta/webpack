@@ -10,9 +10,11 @@ export interface IBuildOptions  {
     port : number
     paths: IBuildPaths
     mode : TMode
+    analizer : boolean
 }
 
  export interface IEnvVarsType {
     mode : TMode
     port : number
+    anlizer : boolean
 }
