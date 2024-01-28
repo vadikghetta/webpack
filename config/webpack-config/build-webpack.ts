@@ -17,12 +17,24 @@ import { buildResolvers } from "./build-resolvers";
             path: paths.output,
             clean: true
         },
+        optimization : {
+            splitChunks: {
+                chunks: 'all',
+                minSize: 0,
+                cacheGroups: {
+                  vendor: {
+                    test: /[\\/]node_modules[\\/]/,
+                    name: 'vendors',
+                    chunks: 'all',
+                  },
+                },}
+        },
         devtool: isDev ? "inline-source-map" : false,
         devServer : isDev ? buildDevServer(options) : undefined,
         plugins: buildPlugins(options),
         module: {
             rules: buildLoaders(options),
         },
-        resolve: buildResolvers(),
+        resolve: buildResolvers(options),
     }
 }

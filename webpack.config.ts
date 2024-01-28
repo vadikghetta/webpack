@@ -19,7 +19,8 @@ export default (env : IEnvVarsType) =>
         port : env.port ?? 3000,
         mode : env.mode ?? "development",
         paths,
-        analizer : env.anlizer ?? false
+        analizer : env.anlizer ?? false,
+        src : path.resolve(__dirname, "src")
     });
 
     return config;

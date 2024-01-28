@@ -11,6 +11,7 @@ export interface IBuildOptions  {
     paths: IBuildPaths
     mode : TMode
     analizer : boolean
+    src : string
 }
 
  export interface IEnvVarsType {
