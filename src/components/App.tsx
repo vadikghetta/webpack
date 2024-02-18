@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./App.module.scss"
 import { Link, Outlet } from "react-router-dom";
-import Image from "@/assets/bOvf94dPRxWu0u3QsPjF_tree.jpg";
 import TestSvg from "../assets/test.svg";
 
 
@@ -11,7 +10,7 @@ const App = () => {
     return (
         <div>
             <div className="">
-                {/* {Image} */}
+                <img src={"../assets/bOvf94dPRxWu0u3QsPjF_tree.jpg"} width={100} height={100} />
             </div>
             <TestSvg fill="#000" />
             <Link to={"/about"} >About</Link>
