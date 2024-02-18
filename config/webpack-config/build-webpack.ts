@@ -13,7 +13,7 @@ import { buildResolvers } from "./build-resolvers";
         mode: mode ?? "development",
         entry: paths.entry,
         output : {
-            filename: '[name].[contenthash].js',
+            filename: 'js/[name].[contenthash].js',
             path: paths.output,
             clean: true
         },
