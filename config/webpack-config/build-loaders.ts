@@ -14,7 +14,19 @@ export function buildLoaders  (options : IBuildOptions) : ModuleOptions["rules"]
       } 
     },
   }
-  
+    const assetLoader =    {
+      test: /\.(png|jpg|gif)$/i,
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            limit: 8192,
+          }
+        },
+      ],
+
+     type: 'javascript/auto'
+    }
     const sassLoader =  {
       test: /\.s[ac]ss$/i,
       use: [
@@ -28,8 +40,32 @@ export function buildLoaders  (options : IBuildOptions) : ModuleOptions["rules"]
       use: 'ts-loader',
       exclude: /node_modules/,
     }
+
+    const svgrLoader = {
+      test: /\.svg$/i,
+      use: [
+          {
+              loader: '@svgr/webpack',
+              options: {
+                  icon: true,
+                  svgoConfig: {
+                      plugins: [
+                          {
+                              name: 'convertColors',
+                              params: {
+                                  currentColor: true,
+                              }
+                          }
+                      ]
+                  }
+              }
+          }
+      ],
+  }
     return [
       sassLoader,
-      tsLoader
+      tsLoader,
+      svgrLoader,
+      assetLoader
     ]
 }
