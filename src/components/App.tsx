@@ -7,6 +7,7 @@ import TreeJpg from "../assets/bOvf94dPRxWu0u3QsPjF_tree.jpg";
 
 const App = () => {
     const [counter, setCounter] = useState<number>(0);
+
     if (__PLATFORM__ === 'desktop') {
         return <div>ISDESKTOPPLATFORM</div>
     }

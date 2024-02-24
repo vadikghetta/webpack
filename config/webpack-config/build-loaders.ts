@@ -35,11 +35,18 @@ export function buildLoaders  (options : IBuildOptions) : ModuleOptions["rules"]
         "sass-loader",
       ],
     }
-    const tsLoader = {
-      test: /\.tsx?$/,
-      use: 'ts-loader',
-      exclude: /node_modules/,
-    }
+    const tsLoader =  {
+        test: /\.tsx?$/,
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
+        ]
+      }
 
     const svgrLoader = {
       test: /\.svg$/i,

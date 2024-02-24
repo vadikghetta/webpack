@@ -6,6 +6,7 @@ import webpack from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
 import { platform } from "os";
 import CopyWebpackPlugin  from "copy-webpack-plugin"
+import ForkTsCheckerWebpackPlugin from "fork-ts-checker-webpack-plugin"
 
 export function buildPlugins ({mode, paths : {html}, analizer} : IBuildOptions) : Configuration["plugins"]  {
 
@@ -22,7 +23,9 @@ export function buildPlugins ({mode, paths : {html}, analizer} : IBuildOptions) 
             patterns: [
               { from: "src/assets", to: "build/assets" }
             ],
-          })
+          }),
+          new ForkTsCheckerWebpackPlugin()
+        
     ]
     if(isDev) {
         plugins.push(
