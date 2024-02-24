@@ -1,9 +1,11 @@
 import HtmlWebpackPlugin from "html-webpack-plugin";
 import MiniCssExtractPlugin from "mini-css-extract-plugin";
-import { Configuration } from "webpack";
+import { Configuration, DefinePlugin } from "webpack";
 import { IBuildOptions } from "./types";
 import webpack from "webpack";
 import { BundleAnalyzerPlugin } from "webpack-bundle-analyzer";
+import { platform } from "os";
+import CopyWebpackPlugin  from "copy-webpack-plugin"
 
 export function buildPlugins ({mode, paths : {html}, analizer} : IBuildOptions) : Configuration["plugins"]  {
 
@@ -12,7 +14,15 @@ export function buildPlugins ({mode, paths : {html}, analizer} : IBuildOptions) 
     const plugins : Configuration["plugins"] = [
         new HtmlWebpackPlugin({
             template: html
-        })
+        }),
+        new DefinePlugin({
+            __PLATFORM__ : JSON.stringify(platform)
+        }),
+        new CopyWebpackPlugin({
+            patterns: [
+              { from: "src/assets", to: "build/assets" }
+            ],
+          })
     ]
     if(isDev) {
         plugins.push(
